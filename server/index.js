@@ -1,5 +1,5 @@
 /*
- * Koneksi Nodejs dengan MongoDB menggunakan Mongoose
+ * Vuenodex is a fullstacks vuejs application combine with node and express for the backend and mongoDB for the database.
  *
  * Author By IvanDjoh
  * https://ivandjoh.com/
@@ -7,31 +7,47 @@
  * License :  Free!!!
  */
 
+// get dependencies
+const express = require('express');
+const bodyParser = require('body-parser');
 
-const express = require('express'),
-      bodyParser = require('body-parser'),
-      cors = require('cors'),
-      mongoose = require('mongoose'),
-      path = require('path');
-
-// Server Initialization
 const app = express();
 
-app.configure(() => {
-    app.use(express.logger());
+// parse requests
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
-    app.use((req, res, next) => {
-        res.header('Access-Control-Allow-Origin', '*');
-        res.header('Access-Control-Allow-Methods', 'GET,POST,PUT','DELETE');
-        res.header('Access-Control-Allow-Headers', 'Content-Type');
+//Enable CORS for all HTTP methods
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
 
-        if('OPTION' == req.method){
-            res.send(200);
-        }
-        else {
-            next();
-        }
-    })
-    app.use(express.bodyParser());
-    app.use(express.methodOve)
-})
+// Configuring the database
+const config = require('./config.js');
+const mongoose = require('mongoose');
+require('./product.routes.js')(app);
+
+mongoose.Promise = global.Promise;
+
+// Connecting to the database
+mongoose.connect(config.url, {
+    useNewUrlParser: true
+}).then(() => {
+    console.log("Successfully connected to the database");    
+}).catch(err => {
+    console.log('Could not connect to the database. Exiting now...', err);
+    process.exit();
+});
+
+// default route
+app.get('/', (req, res) => {
+    res.json({"message": "Welcome to vuenodex app"});
+});
+
+// listen on port 3000
+app.listen(config.serverport, () => {
+    console.log("Server is listening on port 3000");
+});
