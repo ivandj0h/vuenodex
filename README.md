@@ -14,8 +14,8 @@ https://github.com/ivandi1980/vuenodex.git
 # Install dependencies
 npm install
 
-# Start Express Server: http://localhost:5000
-npm start
+# Start Development Server: http://localhost:3000
+npm run dev
 
 # Start Vue DevServer: http://localhost:8080
 cd client
