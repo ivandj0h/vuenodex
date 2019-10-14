@@ -1,12 +1,3 @@
-/*
- * Vuenodex is a fullstacks vuejs application combine with node and express for the backend and mongoDB for the database.
- *
- * Author By IvanDjoh
- * https://ivandjoh.com/
- *
- * License :  Free!!!
- */
-
 // get dependencies
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -44,7 +35,7 @@ mongoose.connect(config.url, {
 
 // default route
 app.get('/', (req, res) => {
-    res.json({"message": "Welcome to vuenodex app"});
+    res.json({"message": "Welcome to ZeptoBook Product app"});
 });
 
 // listen on port 3000

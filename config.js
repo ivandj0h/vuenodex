@@ -1,4 +1,4 @@
 module.exports = {
-    serverport: 27017,
-    url: `mongodb://localhost:27017/vuenodex`
+    url: 'mongodb://127.0.0.1:27017/vuenodex',
+    serverport: 3000 
 }
